@@ -3,7 +3,11 @@ package com.bawei6.gisim;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
+/**
+ * @author AZhung
+ * @date 2019/12/27
+ * @description
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

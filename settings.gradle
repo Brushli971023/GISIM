@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':Baselibrary', ':HomeModule'
 rootProject.name='GISIM'
