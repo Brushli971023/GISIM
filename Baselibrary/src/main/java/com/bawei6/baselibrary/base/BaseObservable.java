@@ -1,4 +1,4 @@
-package com.bawei6.baselibrary;
+package com.bawei6.baselibrary.base;
 
 import com.bawei6.baselibrary.data.BaseObserver;
 

@@ -9,9 +9,16 @@ import com.bawei6.baselibrary.basemvp.IBaseView;
  * @description
  */
 public interface HomeContract {
+
     interface Model extends IBaseModel {
+
     }
 
     interface View extends IBaseView {
+        void setData(String str);
     }
+
+    interface Presenter{
+    }
+
 }

@@ -1,5 +1,9 @@
 package com.bawei6.baselibrary.data;
-
+/**
+ * @author AZhung
+ * @date 2019/12/27
+ * @description 网络请求回调基类
+ */
 public class BaseBean<T> {
     /**
      * code : 200

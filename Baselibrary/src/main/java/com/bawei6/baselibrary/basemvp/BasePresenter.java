@@ -1,5 +1,7 @@
 package com.bawei6.baselibrary.basemvp;
 
+import java.lang.ref.WeakReference;
+
 /**
  * @author AZhung
  * @date 2019/12/27
@@ -37,12 +39,17 @@ public abstract class BasePresenter<M extends IBaseModel,V extends IBaseView> {
     public void detachView() {
         if (mViewRef != null) {
             mViewRef = null;
-            System.gc();
         }
 
         onViewDestroy();
     }
 
+    /**
+     * 获取View的方法
+     */
+    public V getView(){
+        return mViewRef == null ? null : mViewRef.get();
+    }
     /**
      * 释放资源处理
      */

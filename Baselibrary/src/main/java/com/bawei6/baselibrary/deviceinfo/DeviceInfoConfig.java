@@ -9,8 +9,11 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
-
-import com.umeng.commonsdk.utils.UMUtils;
+/**
+ * @author AZhung
+ * @date 2019/12/27
+ * @description Phone设备信息获取
+ */
 
 public class DeviceInfoConfig {
 

@@ -6,7 +6,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author AZhung
  * @date 2019/12/27
- * @description
+ * @description observer基类
  */
 public class BaseObserver<T> implements Observer<T> {
 

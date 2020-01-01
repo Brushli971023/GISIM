@@ -2,7 +2,11 @@ package com.bawei6.baselibrary.deviceinfo;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-
+/**
+ * @author AZhung
+ * @date 2019/12/27
+ * @description app信息获取
+ */
 public class AppInfoConfig {
 
     private static volatile AppInfoConfig singleton;

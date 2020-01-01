@@ -3,6 +3,9 @@ package com.bawei6.gisim;
 import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bawei6.baselibrary.deviceinfo.AppInfoConfig;
+import com.bawei6.baselibrary.deviceinfo.DeviceInfoConfig;
+
 /**
  * @author AZhung
  * @date 2019/12/27
@@ -16,6 +19,14 @@ public class MainApplication extends Application {
 
         //初始化ARouter
         initARouter();
+        //初始化设备信息获取类
+        initInfoConfig();
+
+    }
+
+    private void initInfoConfig() {
+        AppInfoConfig.getInstance().init(this);
+        DeviceInfoConfig.getInstance().init(this);
     }
 
     private void initARouter() {

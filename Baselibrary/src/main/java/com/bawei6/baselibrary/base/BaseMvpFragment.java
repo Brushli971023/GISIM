@@ -1,9 +1,9 @@
-package com.bawei6.baselibrary;
+package com.bawei6.baselibrary.base;
 
-import android.os.Bundle;
+import android.content.Context;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.bawei6.baselibrary.basemvp.BasePresenter;
 import com.bawei6.baselibrary.basemvp.IBaseModel;
@@ -15,12 +15,12 @@ import com.bawei6.baselibrary.basemvp.IBaseView;
  * @date 2019/12/27
  * @description
  */
-public abstract class BaseMvpActivity<M extends IBaseModel, V extends IBaseView, P extends BasePresenter> extends AppCompatActivity implements IBaseMvp<M,V,P> {
+public abstract class BaseMvpFragment <M extends IBaseModel, V extends IBaseView, P extends BasePresenter> extends Fragment implements IBaseMvp<M,V,P> {
     protected P presenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
         //创建Presenter
         presenter = createPresenter();
@@ -33,11 +33,12 @@ public abstract class BaseMvpActivity<M extends IBaseModel, V extends IBaseView,
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         if (presenter != null){
             //Activity销毁时的调用
             presenter.detachView();
         }
     }
+
 }
