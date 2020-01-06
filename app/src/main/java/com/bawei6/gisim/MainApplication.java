@@ -1,10 +1,14 @@
 package com.bawei6.gisim;
 
 import android.app.Application;
+import android.content.Context;
+
+import androidx.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bawei6.baselibrary.deviceinfo.AppInfoConfig;
 import com.bawei6.baselibrary.deviceinfo.DeviceInfoConfig;
+import com.bawei6.baselibrary.utils.AliyunUtils;
 
 /**
  * @author AZhung
@@ -12,6 +16,13 @@ import com.bawei6.baselibrary.deviceinfo.DeviceInfoConfig;
  * @description
  */
 public class MainApplication extends Application {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        //拆分dex文件
+        initMutilDex();
+    }
 
     @Override
     public void onCreate() {
@@ -22,6 +33,11 @@ public class MainApplication extends Application {
         //初始化设备信息获取类
         initInfoConfig();
 
+        AliyunUtils.getInstance().init(this);
+    }
+
+    private void initMutilDex() {
+        MultiDex.install(this);
     }
 
     private void initInfoConfig() {

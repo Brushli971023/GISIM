@@ -1,6 +1,7 @@
 package com.bawei6.baselibrary.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 /**
  * @author AZhung
@@ -8,6 +9,7 @@ import android.widget.Toast;
  * @description Toast工具类
  */
 public class UIToastUtils {
+    private Context context;
     private Activity activity;
 
     private static volatile UIToastUtils singleton;
@@ -27,6 +29,10 @@ public class UIToastUtils {
     }
 
 
+    public void init(Context context){
+        this.context = context;
+    }
+
     public void init(Activity activity){
         this.activity = activity;
     }
@@ -36,8 +42,16 @@ public class UIToastUtils {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(activity, string, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void shortToast(String string){
+        Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
+    }
+
+    public void longToast(String string){
+        Toast.makeText(context,string,Toast.LENGTH_LONG).show();
     }
 }

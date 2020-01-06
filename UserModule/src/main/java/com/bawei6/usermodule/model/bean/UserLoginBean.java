@@ -3,11 +3,11 @@ package com.bawei6.usermodule.model.bean;
 public class UserLoginBean {
 
     private String username;
-    private String password;
+    private String pwd;
 
     public UserLoginBean(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.pwd = password;
     }
 
     public String getUsername() {
@@ -18,11 +18,11 @@ public class UserLoginBean {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 }

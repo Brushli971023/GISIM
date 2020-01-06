@@ -1,39 +1,34 @@
-package com.bawei6.usermodule;
+package com.bawei6.usermodule.view.activity;
 
+import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bawei6.baselibrary.base.BaseMvpActivity;
-import com.bawei6.baselibrary.base.BaseObservable;
+import com.bawei6.baselibrary.base.BaseActivity;
 import com.bawei6.baselibrary.common.BaseConstant;
-import com.bawei6.baselibrary.data.BaseBean;
-import com.bawei6.baselibrary.data.BaseObserver;
-import com.bawei6.baselibrary.utils.RetrofitUtils;
 import com.bawei6.baselibrary.utils.ThreadUtils;
 import com.bawei6.baselibrary.utils.UIToastUtils;
+import com.bawei6.usermodule.R;
 import com.bawei6.usermodule.contract.UserContract;
 import com.bawei6.usermodule.model.UserModel;
 import com.bawei6.usermodule.model.api.UserApi;
 import com.bawei6.usermodule.model.bean.UserInfoBean;
-import com.bawei6.usermodule.model.bean.UserLoginBean;
 import com.bawei6.usermodule.presenter.UserPresenter;
 import com.baweigame.xmpplibrary.XmppManager;
 import com.baweigame.xmpplibrary.callback.IMsgCallback;
 import com.baweigame.xmpplibrary.entity.MsgEntity;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
+import java.util.List;
 
 /**
  * @author AZhung
@@ -41,7 +36,7 @@ import io.reactivex.ObservableOnSubscribe;
  * @description 登录注册页面
  */
 @Route(path = BaseConstant.AROUTERTO_USERMODULE)
-public class RLActivity extends BaseMvpActivity<UserModel, UserContract.View, UserPresenter> implements UserContract.View,View.OnClickListener {
+public class LoginActivity extends BaseActivity implements UserContract.View,View.OnClickListener {
 
     private Button btu_register;
     private Button btu_login;
@@ -52,37 +47,21 @@ public class RLActivity extends BaseMvpActivity<UserModel, UserContract.View, Us
     private CheckBox checkbox_remember_pswd;
     private String username;
     private String password;
+    private UserPresenter userPresenter;
+    private Toast loginSuccess;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rl);
         ARouter.getInstance().inject(this);
         UIToastUtils.getInstance().init(this);
-        initListener();
+        mXmppManager = XmppManager.getInstance();
         initView();
     }
 
-    private void initListener() {
 
-        ThreadUtils.getInstance().getExecutorService().execute(new Runnable() {
-            @Override
-            public void run() {
-                mXmppManager = XmppManager.getInstance();
-                mXmppManager.addMessageListener(new IMsgCallback() {
-                    @Override
-                    public void Success(MsgEntity msgEntity) {
-                        UIToastUtils.getInstance().uiToast(msgEntity.getFrom() + ":" + msgEntity.getMsg());
-                    }
-
-                    @Override
-                    public void Failed(Throwable throwable) {
-
-                    }
-                });
-            }
-        });
-    }
 
     private void initView() {
         btu_register = (Button) findViewById(R.id.btu_register);
@@ -104,34 +83,15 @@ public class RLActivity extends BaseMvpActivity<UserModel, UserContract.View, Us
         int id = v.getId();
         if (id == R.id.btu_register) {
             submit();
-            if (presenter != null){
-                presenter.registerUser(username,password);
+            if (userPresenter != null){
+                userPresenter.registerUser(username,password);
             }
         } else if (id == R.id.btu_login) {
             submit();
-            if (presenter != null){
-                presenter.loginUser(username,password);
+            if (userPresenter != null){
+                userPresenter.loginUser(username,password);
             }
         }
-//        else if (id == R.id.btu_add) {
-//            ThreadUtils.getInstance().getExecutorService().execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (mXmppManager.getXmppFriendManager().addFriend(tousername+"@"+XmppManager.getInstance().getXmppConfig().getDomainName(), tousername)){
-//                        UIToastUtils.getInstance().uiToast("添加成功");
-//                    }else {
-//                        UIToastUtils.getInstance().uiToast("添加失败");
-//                    }
-//                }
-//            });
-//        }else if (id == R.id.btu_to) {
-//            ThreadUtils.getInstance().getExecutorService().execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mXmppManager.getXmppMsgManager().sendSingleMessage(tousername+"@"+XmppManager.getInstance().getXmppConfig().getDomainName(),"您好"+tousername);
-//                }
-//            });
-//        }
     }
 
 
@@ -167,7 +127,8 @@ public class RLActivity extends BaseMvpActivity<UserModel, UserContract.View, Us
 
     @Override
     public UserPresenter createPresenter() {
-        return new UserPresenter();
+        userPresenter = new UserPresenter();
+        return userPresenter;
     }
 
     @Override
@@ -177,11 +138,29 @@ public class RLActivity extends BaseMvpActivity<UserModel, UserContract.View, Us
 
     @Override
     public void loginResult(String string) {
-        if ("登录成功".equals(string)){
-            Toast.makeText(RLActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-            ARouter.getInstance().build(BaseConstant.AROUTERTO_HOMEMODULE).navigation();
-        }else {
-            Toast.makeText(RLActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+            BaseConstant.userCode = string;
+            loginSuccess = Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT);
+            BaseConstant.userName = username;
+            ARouter.getInstance().build(BaseConstant.AROUTERTO_HOMEMODULE).withString("username",username).navigation();
+    }
+
+    @Override
+    public void searchResult(List<UserInfoBean> userInfoBeanList) {
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (loginSuccess != null){
+            loginSuccess.cancel();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        userPresenter.onViewDestroy();
+        userPresenter.detachView();
     }
 }

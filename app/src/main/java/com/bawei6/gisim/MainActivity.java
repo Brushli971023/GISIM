@@ -1,5 +1,6 @@
 package com.bawei6.gisim;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,37 +15,15 @@ import com.bawei6.baselibrary.common.BaseConstant;
  * @date 2019/12/27
  * @description
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity{
 
-    private Button btu_toMap;
-    private Button btu_toIM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
-
-
-    }
-
-    private void initView() {
-        btu_toMap = (Button) findViewById(R.id.btu_toMap);
-        btu_toIM = (Button) findViewById(R.id.btu_toIM);
-
-        btu_toMap.setOnClickListener(this);
-        btu_toIM.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btu_toMap:
-                ARouter.getInstance().build(BaseConstant.AROUTERTO_HOMEMODULE).navigation();
-                break;
-            case R.id.btu_toIM:
-                ARouter.getInstance().build(BaseConstant.AROUTERTO_USERMODULE).navigation();
-                break;
-        }
+        startService(new Intent(this,XmppService.class));
+        //直接进入登录页面
+        ARouter.getInstance().build(BaseConstant.AROUTERTO_USERMODULE).navigation();
     }
 }

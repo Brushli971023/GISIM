@@ -107,8 +107,9 @@ public class DefaultXmppMsgImpl implements IXmppMsg {
      */
     @Override
     public void sendFile(String user, String filePath) {
-        if (XmppManager.getInstance().getConnection() == null)
+        if (XmppManager.getInstance().getConnection() == null) {
             return;
+        }
         // 创建文件传输管理器
         FileTransferManager manager = FileTransferManager.getInstanceFor(XmppManager.getInstance().getConnection());
 
@@ -122,8 +123,9 @@ public class DefaultXmppMsgImpl implements IXmppMsg {
 
         // 发送文件
         try {
-            if (transfer != null)
+            if (transfer != null) {
                 transfer.sendFile(new File(filePath), "You won't believe this!");
+            }
         } catch (SmackException e) {
             e.printStackTrace();
         }
@@ -136,8 +138,9 @@ public class DefaultXmppMsgImpl implements IXmppMsg {
      */
     @Override
     public Map<String, List<HashMap<String, String>>> getHisMessage() {
-        if (XmppManager.getInstance().getConnection() == null)
+        if (XmppManager.getInstance().getConnection() == null) {
             return null;
+        }
         Map<String, List<HashMap<String, String>>> offlineMsgs = null;
 
         try {
@@ -145,8 +148,9 @@ public class DefaultXmppMsgImpl implements IXmppMsg {
             List<Message> messageList = offlineManager.getMessages();
 
             int count = offlineManager.getMessageCount();
-            if (count <= 0)
+            if (count <= 0) {
                 return null;
+            }
             offlineMsgs = new HashMap<>();
 
             for (Message message : messageList) {

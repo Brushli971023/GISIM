@@ -13,11 +13,13 @@
         android:background="@drawable/bottom_navition_background">
 
         <ImageView
+            android:id="@+id/navigation_image_first"
             android:src="@drawable/ic_action_contact_false"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <ImageView
+            android:id="@+id/navigation_image_second"
             android:src="@drawable/ic_action_stars_false"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -28,11 +30,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <ImageView
+            android:id="@+id/navigation_image_third"
             android:src="@drawable/ic_action_camera_false"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <ImageView
+            android:id="@+id/navigation_image_fourth"
             android:src="@drawable/ic_action_share_false"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -40,6 +44,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/navigation_mid_image"
         android:padding="5dp"
         android:src="@drawable/ic_action_mail_true"
         android:background="@drawable/bottom_mid_background"

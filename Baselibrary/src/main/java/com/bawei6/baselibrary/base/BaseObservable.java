@@ -1,5 +1,7 @@
 package com.bawei6.baselibrary.base;
 
+import androidx.lifecycle.LifecycleOwner;
+
 import com.bawei6.baselibrary.data.BaseObserver;
 
 import io.reactivex.Observable;
@@ -16,5 +18,10 @@ public class BaseObservable {
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(observer);
+    }
+
+    public static  void  doObservable(Observable observable1, Observable observable2 , BaseObserver observer) {
+        Observable concat = Observable.concat(observable1, observable2);
+        doObservable(concat, observer);
     }
 }

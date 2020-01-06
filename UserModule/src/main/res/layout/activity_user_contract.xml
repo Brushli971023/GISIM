@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.UserContractActivity">
+
+    <com.bawei6.baselibrary.widget.StatusBarView
+        android:id="@+id/user_contract_status_bar"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.bawei6.baselibrary.widget.CustomTitleBar
+        android:id="@+id/user_contract_custom_bar"
+        app:leftSrc="@drawable/ic_action_left"
+        app:titleBarName="@string/user_contract"
+        app:rightSrc="@drawable/ic_action_person_add"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/user_contract_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/user_contract_tabLayout"
+        android:layout_marginTop="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/user_contract_custom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/user_contract_pager"
+        android:layout_below="@id/user_contract_tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

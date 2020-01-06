@@ -15,7 +15,7 @@ import com.bawei6.baselibrary.basemvp.IBaseView;
  * @date 2019/12/27
  * @description
  */
-public abstract class BaseMvpActivity<M extends IBaseModel, V extends IBaseView, P extends BasePresenter> extends BaseActivity implements IBaseMvp<M,V,P> {
+public abstract class BaseMvpActivity<M extends IBaseModel, V extends IBaseView, P extends BasePresenter> extends AppCompatActivity implements IBaseMvp<M,V,P> {
     protected P presenter;
 
     @Override

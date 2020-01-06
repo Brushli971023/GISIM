@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_back"
-    tools:context="com.bawei6.usermodule.RLActivity">
+    tools:context="com.bawei6.usermodule.view.activity.LoginActivity">
 
     <EditText
         android:id="@+id/edit_username"
@@ -38,7 +38,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="55dp"
+        android:layout_marginLeft="30dp"
         android:background="@drawable/btu_back"
         android:layout_below="@id/checkbox_remember_pswd"/>
 

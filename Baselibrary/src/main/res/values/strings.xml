@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name"> </string>
     <string name="Home_Module">Home_Module</string>
+    <string name="phone_contract">手机联系人</string>
+    <string name="user_contract">联系人</string>
+    <string name="add_person">添加联系人</string>
+
 </resources>

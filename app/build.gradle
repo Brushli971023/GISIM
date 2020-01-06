@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.bawei6.gisim"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -17,6 +17,8 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -41,6 +43,8 @@ dependencies {
     api 'com.alibaba:arouter-api:1.4.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     implementation project(path: ':UserModule')
+    implementation project(path: ':CommonLibrary')
+    implementation project(path: ':XmppLibrary')
 
     //判断以什么模式运行
     if (!IsHomeModule.toBoolean()) {

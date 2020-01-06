@@ -2,7 +2,10 @@ package com.bawei6.usermodule.contract;
 
 import com.bawei6.baselibrary.basemvp.IBaseModel;
 import com.bawei6.baselibrary.basemvp.IBaseView;
+import com.bawei6.usermodule.model.bean.UserInfoBean;
 import com.bawei6.usermodule.model.callback.UserCallBack;
+
+import java.util.List;
 
 /**
  * @author AZhung
@@ -29,6 +32,14 @@ public interface UserContract {
          * @param callBack 接口回调
          */
         void loginFromNet(String username, String password, UserCallBack callBack);
+
+        void searchFriend(String username,String nick,UserCallBack callBack);
+
+        void addFriend(String usercode,String friendcode,String username,UserCallBack callBack);
+
+        void getFriends(String usercode,UserCallBack callBack);
+
+
     }
 
     interface View extends IBaseView {
@@ -43,6 +54,9 @@ public interface UserContract {
          * @param string 返回结果
          */
         void loginResult(String string);
+
+        void searchResult(List<UserInfoBean> userInfoBeanList);
+
     }
 
     interface Presenter {
@@ -58,6 +72,12 @@ public interface UserContract {
          * @param password 密码
          */
         void loginUser(String username,String password);
+
+        void searchFriend(String username,String nick);
+
+        void addFriend(String usercode,String friendcode,String username);
+
+        void getFriends(String usercode);
     }
 
 }

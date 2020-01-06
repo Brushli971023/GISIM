@@ -4,6 +4,8 @@ import com.bawei6.baselibrary.data.BaseBean;
 import com.bawei6.usermodule.model.bean.UserInfoBean;
 import com.bawei6.usermodule.model.bean.UserLoginBean;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -39,14 +41,21 @@ public interface UserApi {
      * @return
      */
     @POST("api/User/login")
-    Observable<BaseBean<UserLoginBean>> getLogin(@Body UserLoginBean userLoginBean);
+    Observable<BaseBean<UserInfoBean>> getLogin(@Body UserLoginBean userLoginBean);
 
-    /**
-     * @desc 用户登录
-     * @param userLoginBean
-     * @return
-     */
+    @POST("api/User/logout")
+    Observable<BaseBean<String>> logout(@Body String username);
+
     @POST("api/User/modifyPwd")
-    Observable<BaseBean<String>> getChangePassword(@Body UserLoginBean userLoginBean);
+    Observable<BaseBean<String>> modifyPwd(@Body BaseBean userEntity);
+
+    @GET("api/Friend/getFriends")
+    Observable<BaseBean<List<UserInfoBean>>> getFriends(@Query("usercode") String usercode);
+
+    @GET("api/Friend/searchFriend")
+    Observable<BaseBean<List<UserInfoBean>>> searchFriend(@Query("username") String username, @Query("nick") String nick);
+
+    @POST(" api/Friend/addFriend")
+    Observable<BaseBean<Boolean>> addFriend(@Query("usercode") String usercode, @Query("friendcode") String friendcode);
 }
 
