@@ -29,6 +29,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <application
+        android:usesCleartextTraffic="true"
         android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -45,7 +46,7 @@
             </intent-filter>
         </activity>
         <!--开发者申请的key-->
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="a5b195fd3d59c82bfd958be5ea056128">
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="aed35168a83dffcf6823b5001e8de74a">
         </meta-data>
         <service android:name=".XmppService"/>
     </application>

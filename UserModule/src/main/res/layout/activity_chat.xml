@@ -79,56 +79,72 @@
         android:layout_above="@id/chat_bottom_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:id="@+id/chat_bottom_list"
-        android:padding="5dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image_sendVoice"
-            android:src="@drawable/ic_action_chat_voice"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image_sendImage"
-            android:src="@drawable/ic_action_chat_image"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/image_sendVoice"
+                android:src="@drawable/ic_action_chat_voice"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/image_sendCupture"
-            android:src="@drawable/ic_action_chat_cupture"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/image_sendImage"
+                android:src="@drawable/ic_action_chat_image"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/image_sendLocation"
-            android:src="@drawable/ic_action_chat_location"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/image_sendCupture"
+                android:src="@drawable/ic_action_chat_cupture"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/image_sendFace"
-            android:src="@drawable/ic_action_chat_face"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/image_sendLocation"
+                android:src="@drawable/ic_action_chat_location"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/image_more"
-            android:src="@drawable/ic_action_chat_more"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/image_sendFace"
+                android:src="@drawable/ic_action_chat_face"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/image_more"
+                android:src="@drawable/ic_action_chat_more"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_face_recyclerView"
+            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+
+
+
 
     <com.ilike.voicerecorder.widget.VoiceRecorderView
         android:id="@+id/ease_voice"

@@ -22,11 +22,21 @@
 
     <ImageView
         android:id="@+id/image_chat"
-        android:visibility="gone"
         android:padding="10dp"
+        android:visibility="gone"
         android:scaleType="centerCrop"
+        android:layout_toRightOf="@id/image_chat_to_header"
         android:background="@drawable/chat_from"
         android:layout_centerHorizontal="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <ImageView
+        android:id="@+id/image_chat_play"
+        android:visibility="gone"
+        android:src="@drawable/ic_action_chat_video_play"
+        android:layout_toRightOf="@id/image_chat_to_header"
+        android:padding="10dp"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 </RelativeLayout>

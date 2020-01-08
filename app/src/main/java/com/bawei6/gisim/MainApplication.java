@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bawei6.baselibrary.deviceinfo.AppInfoConfig;
 import com.bawei6.baselibrary.deviceinfo.DeviceInfoConfig;
 import com.bawei6.baselibrary.utils.AliyunUtils;
+import com.bawei6.baselibrary.utils.ThreadUtils;
 
 /**
  * @author AZhung
@@ -33,7 +34,12 @@ public class MainApplication extends Application {
         //初始化设备信息获取类
         initInfoConfig();
 
-        AliyunUtils.getInstance().init(this);
+        ThreadUtils.getInstance().getExecutorService().execute(new Runnable() {
+            @Override
+            public void run() {
+                AliyunUtils.getInstance().init(MainApplication.this);
+            }
+        });
     }
 
     private void initMutilDex() {

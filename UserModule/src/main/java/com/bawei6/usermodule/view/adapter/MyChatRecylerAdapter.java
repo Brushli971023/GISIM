@@ -1,23 +1,23 @@
 package com.bawei6.usermodule.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bawei6.baselibrary.common.BaseConstant;
+import com.bawei6.baselibrary.utils.MediaPlayerUtils;
 import com.bawei6.usermodule.R;
+import com.bawei6.usermodule.view.activity.VideoPlayActivity;
 import com.baweigame.xmpplibrary.entity.MsgEntity;
 import com.bumptech.glide.Glide;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class MyChatRecylerAdapter extends RecyclerView.Adapter<MyChatRecylerAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         if (msgEntities.get(position).getTo().equals(BaseConstant.userName)){
             switch (msgEntities.get(position).getMsgType()){
                 case Txt:
@@ -76,26 +76,26 @@ public class MyChatRecylerAdapter extends RecyclerView.Adapter<MyChatRecylerAdap
                     holder.text_message.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            MediaPlayer mediaPlayer = new MediaPlayer();
-                            try {
-                                mediaPlayer.setDataSource(msgEntities.get(position).getMsg());
-                                mediaPlayer.prepareAsync();
-                                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                                    @Override
-                                    public void onPrepared(MediaPlayer mediaPlayer) {
-                                        mediaPlayer.start();
-                                    }
-                                });
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            MediaPlayerUtils.getInstance().playOrStop(msgEntities.get(position).getMsg());
                         }
                     });
+                    break;
+                case Img:
+                    holder.text_message.setVisibility(View.GONE);
+                    holder.image_chat.setVisibility(View.VISIBLE);
+                    holder.image_chat.setImageBitmap(BitmapFactory.decodeFile(msgEntities.get(position).getMsg()));
                     break;
                 case Video:
                     holder.text_message.setVisibility(View.GONE);
                     holder.image_chat.setVisibility(View.VISIBLE);
-                    holder.image_chat.setImageBitmap(BitmapFactory.decodeFile(msgEntities.get(position).getMsg()));
+                    holder.image_chat_play.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(msgEntities.get(position).getMsg()).into(holder.image_chat);
+                    holder.image_chat_play.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        context.startActivity(new Intent(context, VideoPlayActivity.class).putExtra("videopath",msgEntities.get(position).getMsg()));
+                        }
+                    });
                     break;
                     default:
             }
@@ -105,25 +105,24 @@ public class MyChatRecylerAdapter extends RecyclerView.Adapter<MyChatRecylerAdap
                 holder.text_message.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MediaPlayer mediaPlayer = new MediaPlayer();
-                        try {
-                            mediaPlayer.setDataSource(msgEntities.get(position).getMsg());
-                            mediaPlayer.prepareAsync();
-                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                                @Override
-                                public void onPrepared(MediaPlayer mediaPlayer) {
-                                    mediaPlayer.start();
-                                }
-                            });
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        MediaPlayerUtils.getInstance().playOrStop(msgEntities.get(position).getMsg());
                     }
                 });
             }else if (msgEntities.get(position).getMsg().contains(".png")){
                 holder.text_message.setVisibility(View.GONE);
                 holder.image_chat.setVisibility(View.VISIBLE);
                 Glide.with(context).load(msgEntities.get(position).getMsg()).into(holder.image_chat);
+            }else if (msgEntities.get(position).getMsg().contains(".mp4")){
+                holder.text_message.setVisibility(View.GONE);
+                holder.image_chat.setVisibility(View.VISIBLE);
+                holder.image_chat_play.setVisibility(View.VISIBLE);
+                Glide.with(context).load(msgEntities.get(position).getMsg()).into(holder.image_chat);
+                holder.image_chat_play.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        context.startActivity(new Intent(context, VideoPlayActivity.class).putExtra("videopath",msgEntities.get(position).getMsg()));
+                    }
+                });
             }
             else {
                 holder.text_message.setText(msgEntities.get(position).getMsg());
@@ -139,11 +138,12 @@ public class MyChatRecylerAdapter extends RecyclerView.Adapter<MyChatRecylerAdap
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView text_message;
-        private ImageView image_chat;
+        private ImageView image_chat,image_chat_play;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             text_message = itemView.findViewById(R.id.text_chat_to_message);
             image_chat = itemView.findViewById(R.id.image_chat);
+            image_chat_play = itemView.findViewById(R.id.image_chat_play);
         }
     }
 }
